@@ -1,8 +1,8 @@
 # Microwave Interface Design
 Design a user-friendly interface for microwaves with [Processing](https://processing.org/)
 ---
-
-![plot](https://github.com/chaupmcs/p1.ChauPham/blob/main/sketch.png)
+- My sketch
+	![plot](https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/sketch.jpg)
 
 
 - Ver 1.0. Set up the project
