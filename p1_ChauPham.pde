@@ -1,6 +1,8 @@
 import g4p_controls.*;
-import de.looksgood.ani.*;
 import controlP5.*;
+import processing.sound.*;
+
+SoundFile sound_button;
 
 ControlP5 controlP5;
 Knob knob_power_level;
@@ -41,9 +43,8 @@ void setup() {
 // Set 1 frame per second  
   frameRate(1);
   
-  
-// "Ani" for animation, perhaps will be used later.
-  Ani.init(this);
+// sound effects
+  sound_button = new SoundFile(this, "sound/microwave_btn.mp3");
   
   smooth();
   
@@ -58,11 +59,15 @@ void setup() {
     .setColorActive(color(255,255,0))
     .setColorValue(color(0, 160, 100));
 
-knob_power_level.getCaptionLabel().setColor(color(255,0,0) );
+knob_power_level.getCaptionLabel().setColor(color(3, 157, 252) ).setSize(13);
 
 // Draw 9 buttons (1->9) as a 3x3 matrix.
   for (int i=0; i<9;i++){
-    String[] img_name =  new String [] {"btn/" + (i+1)+ ".png"} ;
+    String name = "btn/" + (i+1);
+    String original_name = name + ".png";
+    String highlighted_name = name + "_highlight.png";
+
+    String[] img_name =  new String [] {original_name, original_name, highlighted_name} ;
     gimagebtn_digit_buttons[i] = new GImageButton(this, x_start_btn + space_btw_col * (i%3),
               y_start_btn + space_btw_row * (i/3), btn_size, btn_size, img_name);
   }
@@ -81,14 +86,13 @@ for (int i=0; i<4; i++){
 }
 
 
-
 // Draw stop btn
   gimagebtn_stop_btn = new GImageButton(this, x_start_btn, y_start_btn +space_btw_row * 3.3,
-                          btn_size, btn_size, new String [] {"btn/stop.png"} );
+                          btn_size, btn_size, new String [] {"btn/stop.png","btn/stop.png", "btn/stop_highlight.png"} );
                           
 // Draw 30s btn
   gimagebtn_30s_btn = new GImageButton(this, x_start_btn+space_btw_col, y_start_btn +space_btw_row * 3.3,
-                          btn_size, btn_size, new String [] {"btn/30s.png"} );
+                          btn_size, btn_size, new String [] {"btn/30s.png", "btn/30s.png", "btn/30s_highlight.png"} );
                           
 // Backgound
   background(200);
@@ -99,11 +103,11 @@ for (int i=0; i<4; i++){
   
 // Add guide for the knob
   textSize(16); 
-  text("-", knob_x - 10, knob_radius + knob_y);
-  text("0", knob_x - 10, knob_radius + knob_y - 10);
+  text("-", knob_x - 25, knob_radius + knob_y + 15);
+  text("0", knob_x - 10, knob_radius + knob_y );
 
-  text("+", knob_x + knob_radius,  knob_radius + knob_y);
-  text("+", knob_x + knob_radius,  knob_radius + knob_y - 10);
+  text("+", knob_x + knob_radius+10,  knob_radius + knob_y + 15);
+  text("10", knob_x + knob_radius,  knob_radius + knob_y );
 
   
 // LCD Screen to display time
@@ -115,23 +119,16 @@ for (int i=0; i<4; i++){
   for (int i=0; i<4; i++){
       image(pimage_screens_display[i],colon_x + (i-2) * digit_width + int(i>=2)* colon_width, screen_y, digit_width, screen_height); 
   }
-
-
 }
 
 void draw() {
-  
-  // minus 1 second from the timer 
- 
-  
   if (count_time < 0){
     return;
   }
   else{
     change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
   }
-   count_time--;
- 
+   count_time--;   // minus 1 second from the timer 
 }
 
 //// Logic functions -------
@@ -164,7 +161,6 @@ boolean change_screen_display(PImage[] pimage_screens_display, PImage[] pimage_s
   
   draw_digits_for_the_screen(pimage_screens_display);
   return true;
-
 }
 
 
@@ -173,11 +169,7 @@ boolean draw_digits_for_the_screen(PImage[] pimage_screens_display){
       image(pimage_screens_display[i],colon_x + (i-2) * digit_width + int(i>=2)* colon_width, screen_y, digit_width, screen_height); 
   }
   return true;
-
 }
-
-
-
 
 
 //// Event Handlers -------
@@ -187,24 +179,24 @@ void handleButtonEvents(GImageButton button, GEvent event) {
   if (event != GEvent.CLICKED){
     return;
   }
+  
+  sound_button.play(); //play sound effect
 
-  
-  
-  for (int i =0; i<9; i++){
-    if (button == gimagebtn_digit_buttons[i] ) {
-      count_time += (i+1)*60; // add "x" minute(s) when pressing "+x" button 
-    }
-  }
 
   if (button == gimagebtn_30s_btn) {
       count_time += 30; // add 30s to the current countdown
   }
-  
-  if (button == gimagebtn_stop_btn) {
+  else if (button == gimagebtn_stop_btn) {
       count_time = 0; // reset the current countdown
   }
+  else{
+    for (int i =0; i<9; i++){
+      if (button == gimagebtn_digit_buttons[i] ) {
+        count_time += (i+1)*60; // add "x" minute(s) when pressing "+x" button
+      }
+    }
+  }
   
- 
 }
 
 // Handler when the knob was turned
