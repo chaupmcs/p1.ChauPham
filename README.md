@@ -8,7 +8,7 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 <br/>
 <br/>
 
-- Demo (ver 1.3)
+- Demo (ver 1.4)
 
 <img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/demo.png" width="400" height="600">
 
