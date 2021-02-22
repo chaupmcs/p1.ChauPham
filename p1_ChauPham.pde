@@ -2,7 +2,7 @@ import g4p_controls.*;
 import controlP5.*;
 import processing.sound.*;
 
-SoundFile sound_button;
+SoundFile sound_button, sound_finish;
 
 ControlP5 controlP5;
 Knob knob_power_level;
@@ -47,6 +47,7 @@ void setup() {
   
 // sound effects
   sound_button = new SoundFile(this, "sound/microwave_btn.mp3");
+  sound_finish = new SoundFile(this, "sound/microwave_finished.wav");
   
   smooth();
   
@@ -118,12 +119,9 @@ for (int i=0; i<4; i++){
   fill(225, 225, 225); 
   rect(microwave_size+10, 10, 380, 580); 
   
-  
-  
+
   fill(50);      
 
-
- 
       
   textSize(13); 
   text("Press any +button to START!", microwave_size+x_start_btn+space_btw_col*2, y_start_btn +space_btw_row * 3.3, 70, 70);
@@ -148,14 +146,15 @@ void draw() {
   
   if (count_time == 0){
     if (is_running){
-       change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
-       is_running = false;
+      sound_finish.play();
+      change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
+      is_running = false;
      
        // stop sound
        //todo
      
-       add_light_when_microwave_running(false);
-       draw_handle();
+      add_light_when_microwave_running(false);
+      draw_handle();
     }
     draw_handle();
     
@@ -218,8 +217,6 @@ boolean add_light_when_microwave_running(boolean is_running){
   
   rect(50, 50, microwave_size-100, 500); 
 
-  
- 
   return true;
 }
 
@@ -257,6 +254,9 @@ void handleButtonEvents(GImageButton button, GEvent event) {
   }
   else if (button == gimagebtn_stop_btn) {
       count_time = 0; // reset the current countdown
+            change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
+            is_running=false;
+
   }
   else{
     for (int i =0; i<9; i++){
