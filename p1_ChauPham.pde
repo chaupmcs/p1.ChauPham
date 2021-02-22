@@ -32,13 +32,15 @@ int x_start_btn = 80;
 int y_start_btn = 250;
 int btn_size= 50;
 
-
+int microwave_size = 1000;
 int count_time = 0;
+
+boolean is_running = false;
 
 
 void setup() {
 // Set up the size for microwave interface
-  size(400, 600);
+  size(1400, 600);
   
 // Set 1 frame per second  
   frameRate(1);
@@ -50,7 +52,7 @@ void setup() {
   
 // Create a knob for power level
   controlP5 = new ControlP5(this);
-  knob_power_level = controlP5.addKnob("knob",100,200,180,knob_x,knob_y,knob_radius);
+  knob_power_level = controlP5.addKnob("knob",100,200,180,knob_x+microwave_size,knob_y,knob_radius);
   knob_power_level.setCaptionLabel("Power level")
     .setNumberOfTickMarks(10)
     .snapToTickMarks(true)
@@ -68,7 +70,7 @@ knob_power_level.getCaptionLabel().setColor(color(3, 157, 252) ).setSize(13);
     String highlighted_name = name + "_highlight.png";
 
     String[] img_name =  new String [] {original_name, original_name, highlighted_name} ;
-    gimagebtn_digit_buttons[i] = new GImageButton(this, x_start_btn + space_btw_col * (i%3),
+    gimagebtn_digit_buttons[i] = new GImageButton(this, microwave_size+x_start_btn + space_btw_col * (i%3),
               y_start_btn + space_btw_row * (i/3), btn_size, btn_size, img_name);
   }
 
@@ -87,48 +89,91 @@ for (int i=0; i<4; i++){
 
 
 // Draw stop btn
-  gimagebtn_stop_btn = new GImageButton(this, x_start_btn, y_start_btn +space_btw_row * 3.3,
+  gimagebtn_stop_btn = new GImageButton(this, microwave_size+x_start_btn, y_start_btn +space_btw_row * 3.3,
                           btn_size, btn_size, new String [] {"btn/stop.png","btn/stop.png", "btn/stop_highlight.png"} );
                           
 // Draw 30s btn
-  gimagebtn_30s_btn = new GImageButton(this, x_start_btn+space_btw_col, y_start_btn +space_btw_row * 3.3,
+  gimagebtn_30s_btn = new GImageButton(this, microwave_size+x_start_btn+space_btw_col, y_start_btn +space_btw_row * 3.3,
                           btn_size, btn_size, new String [] {"btn/30s.png", "btn/30s.png", "btn/30s_highlight.png"} );
                           
 // Backgound
   background(200);
   fill(50);      
-  
-  textSize(13); 
-  text("Press any +button to START!", x_start_btn+space_btw_col*2, y_start_btn +space_btw_row * 3.3, 70, 70);
-  
-// Add guide for the knob
-  textSize(16); 
-  text("-", knob_x - 25, knob_radius + knob_y + 15);
-  text("0", knob_x - 10, knob_radius + knob_y );
-
-  text("+", knob_x + knob_radius+10,  knob_radius + knob_y + 15);
-  text("10", knob_x + knob_radius,  knob_radius + knob_y );
-
+ 
   
 // LCD Screen to display time
   fill(225, 225, 225); 
-  rect(110, 50, 180, 50); 
+  rect(microwave_size+110, 50, 180, 50); 
+  
+  
+// microwave  body
+  fill(225, 225, 225); //outter
+  rect(10, 10, microwave_size-20, 580); 
+  
+  fill(235, 235, 235); // inner
+  rect(50, 50, microwave_size-100, 500); 
+
+
+// control_body
+  fill(225, 225, 225); 
+  rect(microwave_size+10, 10, 380, 580); 
+  
+  
+  
+  fill(50);      
+
+
+ 
+      
+  textSize(13); 
+  text("Press any +button to START!", microwave_size+x_start_btn+space_btw_col*2, y_start_btn +space_btw_row * 3.3, 70, 70);
+  
+// Add guide for the knob
+  textSize(16); 
+  text("-", microwave_size+knob_x - 25, knob_radius + knob_y + 15);
+  text("0", microwave_size+knob_x - 10, knob_radius + knob_y );
+
+  text("+", microwave_size+knob_x + knob_radius+10,  knob_radius + knob_y + 15);
+  text("10", microwave_size+knob_x + knob_radius,  knob_radius + knob_y );
+
   
 //Add items for the screen 
-  image(colon,colon_x,colon_y,colon_width,colon_height); //colon
+  image(colon,microwave_size+colon_x,colon_y,colon_width,colon_height); //colon
   for (int i=0; i<4; i++){
-      image(pimage_screens_display[i],colon_x + (i-2) * digit_width + int(i>=2)* colon_width, screen_y, digit_width, screen_height); 
+      image(pimage_screens_display[i],microwave_size+colon_x + (i-2) * digit_width + int(i>=2)* colon_width, screen_y, digit_width, screen_height); 
   }
 }
 
 void draw() {
-  if (count_time < 0){
-    return;
+  
+  if (count_time == 0){
+    if (is_running){
+       change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
+       is_running = false;
+     
+       // stop sound
+       //todo
+     
+       add_light_when_microwave_running(false);
+       draw_handle();
+    }
+    draw_handle();
+    
   }
   else{
-    change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
+    if (count_time < 0){
+       return; 
+    }
+    else{
+      change_screen_display(pimage_screens_display, pimage_screen_image, count_time);
+      add_light_when_microwave_running(true);
+      draw_handle();
+      count_time--;   // minus 1 second from the timer 
+    }
   }
-   count_time--;   // minus 1 second from the timer 
+   
+   
+   
 }
 
 //// Logic functions -------
@@ -158,19 +203,42 @@ boolean change_screen_display(PImage[] pimage_screens_display, PImage[] pimage_s
     pimage_screens_display[i] = pimage_screen_image[int(str_4_digits[i])];
   }
 
-  
   draw_digits_for_the_screen(pimage_screens_display);
   return true;
 }
 
 
+boolean add_light_when_microwave_running(boolean is_running){
+  if (is_running){
+     fill(255,248,220);
+  }
+  else{
+      fill(235, 235, 235);
+  }
+  
+  rect(50, 50, microwave_size-100, 500); 
+
+  
+ 
+  return true;
+}
+
 boolean draw_digits_for_the_screen(PImage[] pimage_screens_display){
   for (int i=0; i<4; i++){
-      image(pimage_screens_display[i],colon_x + (i-2) * digit_width + int(i>=2)* colon_width, screen_y, digit_width, screen_height); 
+      image(pimage_screens_display[i],microwave_size+colon_x + (i-2) * digit_width + int(i>=2)* colon_width, screen_y, digit_width, screen_height); 
   }
   return true;
 }
 
+
+boolean draw_handle(){
+ // Microwave handle
+  strokeWeight(3);
+  line(400+490, 210, 400+507, 200);
+  line(400+507, 200, 400+507, 300+150);
+  line(400+490, 290+150, 400+507, 300+150); 
+  return true;
+}
 
 //// Event Handlers -------
 // Handle the event when the buttons were clicked
@@ -185,6 +253,7 @@ void handleButtonEvents(GImageButton button, GEvent event) {
 
   if (button == gimagebtn_30s_btn) {
       count_time += 30; // add 30s to the current countdown
+      is_running = true;
   }
   else if (button == gimagebtn_stop_btn) {
       count_time = 0; // reset the current countdown
@@ -193,6 +262,7 @@ void handleButtonEvents(GImageButton button, GEvent event) {
     for (int i =0; i<9; i++){
       if (button == gimagebtn_digit_buttons[i] ) {
         count_time += (i+1)*60; // add "x" minute(s) when pressing "+x" button
+        is_running = true;
       }
     }
   }

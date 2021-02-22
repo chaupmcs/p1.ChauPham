@@ -16,9 +16,14 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 - Ver 1.0. Set up the project
 - Ver 1.1. Done the UI
 - Ver 1.2. Change the screen digits when pressing the button
-- Ver 1.3: Add Sound/visual effects
+- Ver 1.3. Add Sound/visual effects
+- Ver 1.4. Add the microwave handle, light effect when running
 
-- **TODO**: Add the report
+- **TODO**: 
+	+ Update the sketch
+	+ Add sound when the heating's finished
+	+ Add Open, close action
+	+ Adjust the light effect according to Power Level
 
 
 
