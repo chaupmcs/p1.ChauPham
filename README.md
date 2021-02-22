@@ -8,7 +8,7 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 <br/>
 <br/>
 
-- Demo (ver 1.4)
+- Demo (ver 1.6)
 
 <img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/demo.png" width="700" height="300">
 
@@ -19,12 +19,11 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 - Ver 1.3. Add Sound/visual effects
 - Ver 1.4. Add the microwave handle, light effect when running
 - Ver 1.5. Add sound when the finishing the warmup
-
+- Ver 1.6. Adjust the light effect according to Power Level
 
 - **TODO**: 
 	+ Update the sketch
 	+ Add Open, Close action
-	+ Adjust the light effect according to Power Level
 
 
 

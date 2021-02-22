@@ -36,8 +36,8 @@ int microwave_size = 1000;
 int count_time = 0;
 
 boolean is_running = false;
-
-
+color[] power_level_colors = new color[]{color(255,255,204), color(255,255,153), color(255,255,102), color(255,255,51), color(255,255,0)};
+int power_color; 
 void setup() {
 // Set up the size for microwave interface
   size(1400, 600);
@@ -209,7 +209,8 @@ boolean change_screen_display(PImage[] pimage_screens_display, PImage[] pimage_s
 
 boolean add_light_when_microwave_running(boolean is_running){
   if (is_running){
-     fill(255,248,220);
+    print("power_color", power_color);
+     fill(power_level_colors[power_color]);
   }
   else{
       fill(235, 235, 235);
@@ -270,6 +271,13 @@ void handleButtonEvents(GImageButton button, GEvent event) {
 }
 
 // Handler when the knob was turned
-//void knob(int theValue) {
-//    knob_power_level.setCaptionLabel( "Power level: "+(theValue/10-10));
-//}
+void knob(int theValue) {
+    int power_level =theValue/10-10;
+    if ( power_level<6 ){
+      power_color = 1;
+    }
+    else{
+      power_color = power_level- 6;
+      
+    }
+}
