@@ -3,14 +3,14 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 ---
 - My sketch
 
-<img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/sketch.jpg" width="500" height="800">
+<img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/pictures/sketch.jpg" width="500" height="800">
 
 <br/>
 <br/>
 
 - Demo (ver 1.6)
 
-<img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/demo.png" width="900" height="380">
+<img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/pictures/demo.png" width="1000" height="420">
 
 
 - Ver 1.0. Set up the project

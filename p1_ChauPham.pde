@@ -37,7 +37,7 @@ int count_time = 0;
 
 boolean is_running = false;
 color[] power_level_colors = new color[]{color(255,255,204), color(255,255,153), color(255,255,102), color(255,255,51), color(255,255,0)};
-int power_color; 
+int power_color=2; 
 void setup() {
 // Set up the size for microwave interface
   size(1400, 600);
@@ -153,9 +153,11 @@ void draw() {
        // stop sound
        //todo
      
-      add_light_when_microwave_running(false);
       draw_handle();
     }
+  
+    add_light_when_microwave_running(false);
+
     draw_handle();
     
   }
@@ -209,7 +211,6 @@ boolean change_screen_display(PImage[] pimage_screens_display, PImage[] pimage_s
 
 boolean add_light_when_microwave_running(boolean is_running){
   if (is_running){
-    print("power_color", power_color);
      fill(power_level_colors[power_color]);
   }
   else{
