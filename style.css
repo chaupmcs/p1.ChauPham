@@ -5,9 +5,11 @@ body, div, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, img, form, fieldse
     margin: 0px; padding: 0px; border: 0px;
 }
 
+
 html {
     height: 100%;
     overflow: auto; 
+    overflow-y: scroll; 
 }
 
 body {
@@ -20,6 +22,7 @@ body {
     left: 4%;
     top: 0px;
     overflow:visible;
+    position: absolute;
 }
 
 nav {

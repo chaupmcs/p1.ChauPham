@@ -124,7 +124,7 @@ for (int i=0; i<4; i++){
 
       
   textSize(13); 
-  text("Press any +button to START!", microwave_size+x_start_btn+space_btw_col*2, y_start_btn +space_btw_row * 3.3, 70, 70);
+  text("Press any +button to ADD TIME & START!", microwave_size+x_start_btn+space_btw_col*2, y_start_btn +space_btw_row * 3, 90, 90);
   
 // Add guide for the knob
   textSize(16); 
