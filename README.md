@@ -6,6 +6,7 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 
 - [Video](https://www.youtube.com/watch?v=FuHViAN-mag)
 <br/>
+
 - My sketch
 
 <img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/pictures/sketch.jpg" width="500" height="800">
@@ -27,9 +28,8 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 - Ver 1.6. Adjust the light effect according to Power Level
 - Ver 1.7. Update the sketch
 - Ver 2.1. Add the report
-
-- **Todo**:
-	Add the video
+- Ver 2.2. Add the video
+- Ver 2.2.1. Finish
 
 
 
