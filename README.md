@@ -1,6 +1,11 @@
 # Microwave Interface Design
 Design a user-friendly interface for microwaves with [Processing](https://processing.org/)
 ---
+- [Report](https://chaupmcs.github.io/p1.ChauPham/index.html)
+<br/>
+
+- [Video](https://www.youtube.com/watch?v=FuHViAN-mag)
+<br/>
 - My sketch
 
 <img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/pictures/sketch.jpg" width="500" height="800">
@@ -9,8 +14,6 @@ Design a user-friendly interface for microwaves with [Processing](https://proces
 <br/>
 
 - Demo (ver 2)
-
-[Demo Link](https://chaupmcs.github.io/p1.ChauPham/index.html)
 
 <img src="https://raw.githubusercontent.com/chaupmcs/p1.ChauPham/main/pictures/demo.png" width="1000" height="420">
 
